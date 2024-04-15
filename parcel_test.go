@@ -41,7 +41,6 @@ func TestAddGetDelete(t *testing.T) {
 	// add
 	// добавьте новую посылку в БД, убедитесь в отсутствии ошибки и наличии идентификатора
 	id, err := store.Add(parcel)
-
 	require.NoError(t, err)
 	require.NotEmpty(t, id)
 	// get
@@ -53,6 +52,9 @@ func TestAddGetDelete(t *testing.T) {
 	// delete
 	err = store.Delete(id)
 	require.NoError(t, err)
+
+	_, err = store.Get(id)
+	require.Error(t, err)
 	// удалите добавленную посылку, убедитесь в отсутствии ошибки
 	// проверьте, что посылку больше нельзя получить из БД
 }
